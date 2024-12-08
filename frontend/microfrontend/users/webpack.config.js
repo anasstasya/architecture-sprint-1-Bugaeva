@@ -6,6 +6,9 @@ const Dotenv = require('dotenv-webpack');
 const deps = require("./package.json").dependencies;
 
 const printCompilationMessage = require('./compilation.config.js');
+const Register = require("./src/components/Register");
+const InfoTooltip = require("./src/components/InfoTooltip");
+const ProtectedRoute = require("./src/components/ProtectedRoute");
 
 module.exports = (_, argv) => ({
   output: {
@@ -65,7 +68,14 @@ module.exports = (_, argv) => ({
       name: "users",
       filename: "remoteEntry.js",
       remotes: {},
-      exposes: {},
+      exposes: {
+        './EditAvatarPopup': './src/components/EditAvatarPopup.js',
+        './EditProfilePopup': './src/components/EditProfilePopup.js',
+        './Register': './src/components/Register.js',
+        './Login': './src/components/Login.js',
+        './InfoTooltip': './src/components/InfoTooltip.js',
+        './ProtectedRoute': './src/components/ProtectedRoute.js',
+      },
       shared: {
         ...deps,
         react: {

@@ -6,6 +6,8 @@ const Dotenv = require('dotenv-webpack');
 const deps = require("./package.json").dependencies;
 
 const printCompilationMessage = require('./compilation.config.js');
+const PopupWithForm = require("./src/components/PopupWithForm");
+const AddPlacePopup = require("./src/components/AddPlacePopup");
 
 module.exports = (_, argv) => ({
   output: {
@@ -65,7 +67,12 @@ module.exports = (_, argv) => ({
       name: "cards",
       filename: "remoteEntry.js",
       remotes: {},
-      exposes: {},
+      exposes: {
+        './Main': './src/components/Main.js',
+        './PopupWithForm': './src/components/PopupWithForm.js',
+        './ImagePopup': './src/components/ImagePopup.js',
+        './AddPlacePopup': './src/components/AddPlacePopup.js',
+      },
       shared: {
         ...deps,
         react: {
