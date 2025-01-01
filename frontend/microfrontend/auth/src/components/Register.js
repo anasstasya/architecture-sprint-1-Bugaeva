@@ -1,9 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
+import * as auth from "../utils/auth.js";
 
 export default function Register (){
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+
+  const [isInfoToolTipOpen, setIsInfoToolTipOpen] = React.useState(false);
+  const [tooltipStatus, setTooltipStatus] = React.useState("");
+
+  const history = useHistory();
 
   function handleSubmit(e){
     e.preventDefault();

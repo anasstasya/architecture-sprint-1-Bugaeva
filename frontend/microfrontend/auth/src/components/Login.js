@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route, useHistory, Switch } from "react-router-dom";
 import * as auth from "../utils/auth.js";
 
 import '../blocks/login/login.css';
@@ -6,12 +7,15 @@ import '../blocks/login/login.css';
 export default function Login (){
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [currentUser, setCurrentUser] = React.useState({});
 
   const [isInfoToolTipOpen, setIsInfoToolTipOpen] = React.useState(false);
   const [tooltipStatus, setTooltipStatus] = React.useState("");
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
-    function handleSubmit(e){
+  const history = useHistory();
+
+  function handleSubmit(e){
     e.preventDefault();
     const userData = {
       email,
