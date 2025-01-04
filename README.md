@@ -59,3 +59,5 @@ host:
 
 shared-library:
 - не микрофронтенд, содержит контекст пользователя и popup
+
+Задание 2: https://github.com/xromatron/yap-draw.io/blob/main/sprint-1/arch_template_task2_new.drawio
