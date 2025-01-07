@@ -68,6 +68,7 @@
     webpack.config.js
 
 ##Ссылка на схему второго задания:
+
 https://drive.google.com/file/d/1IBSTM9PC7sZZXUKRurK74FgXLLx2J-NW/view?usp=sharing
 
 
