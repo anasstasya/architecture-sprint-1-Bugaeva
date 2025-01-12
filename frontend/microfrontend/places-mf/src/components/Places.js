@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import "../blocks/places/places.css"
 import Card from "./Card";
@@ -7,9 +7,41 @@ import PopupWithForm from "../../../ui-lib/src/components/PopupWithForm";
 import api from "../utils/api";
 import ImagePopup from "../../../ui-lib/src/components/ImagePopup";
 
-export default function Profile({currentUser, onCardClick, onCardLike, onCardDelete}) {
+export default function Profile({currentUser}) {
 
     const [cards, setCards] = useState([]);
+
+    const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+    const [selectedCard, setSelectedCard] = React.useState(null);
+
+    const handleAddPlaceClick = () => {
+        setIsAddPlacePopupOpen(true);
+    }
+
+    useEffect(() => {
+
+        api.getCardList()
+            .then((data) => {
+                setCards(data);
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+
+        addEventListener('onCardAddClick', handleAddPlaceClick)
+        return () => {
+            removeEventListener('onCardAddClick', handleAddPlaceClick)
+        }
+    })
+
+    function handleCardClick(card) {
+        setSelectedCard(card);
+    }
+
+    function onCloseAllPopups() {
+        setIsAddPlacePopupOpen(false);
+        setSelectedCard(null);
+    }
 
     function handleCardLike(card) {
         const isLiked = card.likes.some((i) => i._id === currentUser._id);
@@ -37,7 +69,7 @@ export default function Profile({currentUser, onCardClick, onCardLike, onCardDel
             .addCard(newCard)
             .then((newCardFull) => {
                 setCards([newCardFull, ...cards]);
-                closeAllPopups();
+                onCloseAllPopups();
             })
             .catch((err) => console.log(err));
     }
@@ -51,9 +83,9 @@ export default function Profile({currentUser, onCardClick, onCardLike, onCardDel
                             key={card._id}
                             currentUser={currentUser}
                             card={card}
-                            onCardClick={onCardClick}
-                            onCardLike={onCardLike}
-                            onCardDelete={onCardDelete}
+                            onCardClick={handleCardClick}
+                            onCardLike={handleCardLike}
+                            onCardDelete={handleCardDelete}
                         />
                     ))}
                 </ul>
@@ -61,10 +93,10 @@ export default function Profile({currentUser, onCardClick, onCardLike, onCardDel
             <AddPlacePopup
                 isOpen={isAddPlacePopupOpen}
                 onAddPlace={handleAddPlaceSubmit}
-                onClose={closeAllPopups}
+                onClose={onCloseAllPopups}
             />
             <PopupWithForm title="Вы уверены?" name="remove-card" buttonText="Да"/>
-            <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
+            <ImagePopup card={selectedCard} onClose={onCloseAllPopups}/>
         </>
     )
 }
