@@ -17,3 +17,6 @@
 
 # Почему Module Federation?
 Потому что хорошо подходит для имплементации микрофронтендовской архитектуры в приложении, написанном на одном стеке технологий, Single-SPA сложнее и более advanced, что в контексте задачи излишне.
+
+# Второе задание 
+https://drive.google.com/file/d/1hKZvlkvEK-ZnCs64XKw94Pge9Mhj4uHC/view?usp=sharing
