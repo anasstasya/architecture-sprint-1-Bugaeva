@@ -1,0 +1,6 @@
+{
+    "imports": {
+        "mesto/signin": "http://localhost:4101/src/spa.tsx",
+        "mesto/main": "http://localhost:4102/src/spa.tsx"
+    }
+}
