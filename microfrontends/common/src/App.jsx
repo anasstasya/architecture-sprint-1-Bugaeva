@@ -1,16 +1,11 @@
-import React, { lazy  } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 
 import "./index.css";
 
-const PopupWithForm = lazy(() => import('common/PopupWithForm').catch(()=> {
-    return {default: ()=> <div className='error'>Component Common is not available</div> };
-  }) 
-);
-
 const App = () => (
   <div className="container">
-    <div>Name: profile</div>
+    <div>Name: common</div>
     <div>Framework: react</div>
     <div>Language: JavaScript</div>
     <div>CSS: Empty CSS</div>

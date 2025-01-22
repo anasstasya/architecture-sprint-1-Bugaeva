@@ -64,7 +64,9 @@ module.exports = (_, argv) => ({
     new ModuleFederationPlugin({
       name: "profile",
       filename: "remoteEntry.js",
-      remotes: {},
+      remotes: {
+        'common': 'common@http://localhost:8084/remoteEntry.js',
+	  },
       exposes: {
         './EditAvatarPopup': './src/components/EditAvatarPopup.js',
         './EditProfilePopup': './src/components/EditProfilePopup.js',

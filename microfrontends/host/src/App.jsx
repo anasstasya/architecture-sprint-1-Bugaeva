@@ -4,13 +4,17 @@ import { Route, BrowserRouter, useHistory, Switch } from "react-router-dom";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Footer from "./components/Footer";
-import PopupWithForm from "./components/PopupWithForm";
 import { CurrentUserContext } from "./contexts/CurrentUserContext";
 import InfoTooltip from "./components/InfoTooltip";
 import ProtectedRoute from "./components/ProtectedRoute";
 import * as auth from "./utils/auth.js";
 import api from "./utils/api";
 import "./index.css";
+
+const PopupWithForm = lazy(() => import('common/PopupWithForm').catch(()=> {
+    return {default: ()=> <div className='error'>Component Common is not available</div> };
+  }) 
+);
 
 const Register = lazy(() => import('auth/Register').catch(()=> {
     return {default: ()=> <div className='error'>Component Register is not available</div> };

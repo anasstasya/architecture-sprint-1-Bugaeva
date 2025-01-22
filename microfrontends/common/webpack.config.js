@@ -9,7 +9,7 @@ const printCompilationMessage = require('./compilation.config.js');
 
 module.exports = (_, argv) => ({
   output: {
-    publicPath: "http://localhost:8080/",
+    publicPath: "http://localhost:8084/",
   },
 
   resolve: {
@@ -17,7 +17,7 @@ module.exports = (_, argv) => ({
   },
 
   devServer: {
-    port: 8080,
+    port: 8084,
     historyApiFallback: true,
     watchFiles: [path.resolve(__dirname, 'src')],
     onListening: function (devServer) {
@@ -51,10 +51,6 @@ module.exports = (_, argv) => ({
         use: ["style-loader", "css-loader", "postcss-loader"],
       },
       {
-        test: /\.(png|svg|ttf|woff|jpg|gif)$/,
-        use: ["file-loader"]
-      },
-      {
         test: /\.(ts|tsx|js|jsx)$/,
         exclude: /node_modules/,
         use: {
@@ -66,15 +62,12 @@ module.exports = (_, argv) => ({
 
   plugins: [
     new ModuleFederationPlugin({
-      name: "host",
+      name: "common",
       filename: "remoteEntry.js",
-      remotes: {
-        'auth': 'auth@http://localhost:8081/remoteEntry.js',
-        'profile': 'profile@http://localhost:8082/remoteEntry.js',
-        'card': 'card@http://localhost:8083/remoteEntry.js',
-        'common': 'common@http://localhost:8084/remoteEntry.js',
-	  },
-      exposes: {},
+      remotes: {},
+      exposes: {
+        './PopupWithForm': './src/components/PopupWithForm.js',
+      }, 
       shared: {
         ...deps,
         react: {
