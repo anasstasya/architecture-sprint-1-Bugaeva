@@ -34,6 +34,15 @@ document.addEventListener('onSignIn', () => {
 
 if (!auth.isAuthorized()) {
   singleSpa.navigateToUrl('/signin');
+} else {
+  const token = localStorage.getItem("jwt")!;
+  auth
+    .checkToken(token)
+    .catch((err) => {
+      localStorage.removeItem("jwt");
+      console.log(err);
+      singleSpa.navigateToUrl('/signin');
+    })
 }
 
 singleSpa.start();
