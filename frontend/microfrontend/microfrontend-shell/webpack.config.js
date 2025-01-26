@@ -15,6 +15,7 @@ module.exports = (_, argv) => ({
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
     alias: {
+      'shared-library': path.resolve(__dirname, '../../shared-library'),
     },
   },
 
@@ -90,6 +91,10 @@ module.exports = (_, argv) => ({
         "react-dom": {
           singleton: true,
           requiredVersion: deps["react-dom"],
+        },
+        'shared-library': {
+          import: 'shared-library',
+          requiredVersion: require('../../shared-library/package.json').version,
         },
       },
     }),

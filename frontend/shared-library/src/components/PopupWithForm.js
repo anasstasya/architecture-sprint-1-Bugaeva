@@ -1,6 +1,9 @@
 import React from 'react';
+import '../blocks/popup/popup.css';
+import '../blocks/popup/_is-opened/popup_is-opened.css';
 
-function PopupWithForm({
+
+export function PopupWithForm({
   title,
   name,
   isOpen,
@@ -22,5 +25,3 @@ function PopupWithForm({
     </div>
   );
 }
-
-export default PopupWithForm;
