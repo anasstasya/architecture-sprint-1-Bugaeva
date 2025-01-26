@@ -1,4 +1,5 @@
 const BASE_URL = 'https://auth.nomoreparties.co';
+//const BASE_URL = 'http://localhost:3001';
 
 const getResponse = (res) => {
   return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);

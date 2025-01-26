@@ -15,7 +15,7 @@ services:
   backend-test:
     build:
       context: backend
-      dockerfile: ../Dockerfile.backend
+      dockerfile: Dockerfile
     environment:
       DB_ADDRESS: mongodb://mongo:27017/mestodb
     command: npm run lint
@@ -27,7 +27,7 @@ services:
   backend:
     build:
       context: backend
-      dockerfile: ../Dockerfile.backend
+      dockerfile: Dockerfile
     environment:
       DB_ADDRESS: mongodb://mongo:27017/mestodb
     depends_on:
@@ -42,21 +42,29 @@ services:
       retries: 5 
       test: node healthcheck.js
 
+  frontend-shell:
+    build:
+      context: frontend
+      dockerfile: Dockerfile.mf-shell
+    ports:
+      - 3000:8080
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "--fail", "-G", "http://localhost:3000" ]
+      start_period: 15s
+      interval: 10s
+      timeout: 2s
+      retries: 5
+
   frontend-test:
     build:
       context: frontend
-      dockerfile: ../Dockerfile.frontend
-    command: yarn test:microfrontend
+      dockerfile: Dockerfile.test
     restart: 'no'
     environment:
           CI: true
-
-  frontend:
-    build:
-      context: frontend
-      dockerfile: ../Dockerfile.frontend
-    ports:
-      - 3000:3000
     depends_on:
-      backend:
+      frontend-shell:
         condition: service_healthy

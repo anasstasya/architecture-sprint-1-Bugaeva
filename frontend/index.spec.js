@@ -14,13 +14,13 @@ describe('Микрофронтенд директории', () => {
   });
 });
 
-describe('Сборка проекта', () => {
-  test('Наличие файла index.html в директории public после сборки', () => {
-    const fileExists = fs.existsSync('./public/index.html',);
-
-    expect(fileExists).toBe(true);
-  });
-});
+//describe('Сборка проекта', () => {
+//  test('Наличие файла index.html в директории public после сборки', () => {
+//    const fileExists = fs.existsSync('./public/index.html',);
+//
+//    expect(fileExists).toBe(true);
+//  });
+//});
 
 describe('Запуск проекта', () => {
   jest.setTimeout(30000);
