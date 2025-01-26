@@ -9,18 +9,15 @@ const printCompilationMessage = require('./compilation.config.js');
 
 module.exports = (_, argv) => ({
   output: {
-    publicPath: "http://localhost:3000/",
+    publicPath: "http://localhost:3004/",
   },
 
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
-    alias: {
-      'shared-library': path.resolve(__dirname, '../../shared-library'),
-    },
   },
 
   devServer: {
-    port: 3000,
+    port: 3004,
     historyApiFallback: true,
     watchFiles: [path.resolve(__dirname, 'src')],
     onListening: function (devServer) {
@@ -71,20 +68,19 @@ module.exports = (_, argv) => ({
         test: /\.svg$/i,
         issuer: /\.[jt]sx?$/,
         use: ['@svgr/webpack', 'url-loader'],
-      }
+      },
     ],
   },
 
   plugins: [
     new ModuleFederationPlugin({
-      name: "shell",
+      name: "auth",
       filename: "remoteEntry.js",
-      remotes: {
-        'profiles': 'profiles@http://localhost:3003/remoteEntry.js',
-        'cards': 'cards@http://localhost:3002/remoteEntry.js',
-        'auth': 'auth@http://localhost:3004/remoteEntry.js',
+      remotes: {},
+      exposes: {
+        './AuthPane': './src/components/AuthPane',
+        './AuthRoutes': './src/components/AuthRoutes'
       },
-      exposes: {},
       shared: {
         ...deps,
         react: {
@@ -95,16 +91,10 @@ module.exports = (_, argv) => ({
           singleton: true,
           requiredVersion: deps["react-dom"],
         },
-        'shared-library': {
-          import: 'shared-library',
-          requiredVersion: require('../../shared-library/package.json').version,
-        },
       },
     }),
     new HtmlWebPackPlugin({
-      template: "./public/index.html",
-      favicon: './public/favicon.ico',
-      publicPath: 'http://localhost:3000/',
+      template: "./src/index.html",
     }),
     new Dotenv()
   ],
