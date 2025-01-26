@@ -1,9 +1,20 @@
 import React from 'react';
 import { CurrentUserContext, PopupWithForm } from 'shared-library';
+import api from '../utils/api';
 
-function EditProfilePopup({ isOpen, onUpdateUser, onClose }) {
+function EditProfilePopup({ onUserUpdate }) {
+  const [isOpen, setIsOpen] = React.useState(false);
+
   const [name, setName] = React.useState('');
   const [description, setDescription] = React.useState('');
+
+  const handlePopupOpen = () => {
+    setIsOpen(true);
+  }
+
+  const handlePopupClose = () => {
+    setIsOpen(false);
+  }
 
   function handleNameChange(e) {
     setName(e.target.value);
@@ -22,18 +33,28 @@ function EditProfilePopup({ isOpen, onUpdateUser, onClose }) {
     }
   }, [currentUser]);
 
+  React.useEffect(() => {
+    addEventListener("_profiles-edit-profile-popup-open", handlePopupOpen);
+    return () => removeEventListener("_profiles-edit-profile-popup-open", handlePopupOpen);
+  }, []);
+
   function handleSubmit(e) {
     e.preventDefault();
-
-    onUpdateUser({
-      name,
-      about: description,
-    });
+    api
+      .setUserInfo({
+        name,
+        about: description,
+      })
+      .then((newUserData) => {
+        onUserUpdate(newUserData);
+        handlePopupClose();
+      })
+      .catch((err) => console.log(err));
   }
 
   return (
     <PopupWithForm
-      isOpen={isOpen} onSubmit={handleSubmit} onClose={onClose} title="Редактировать профиль" name="edit"
+      isOpen={isOpen} onSubmit={handleSubmit} onClose={handlePopupClose} title="Редактировать профиль" name="edit"
     >
       <label className="popup__label">
         <input type="text" name="userName" id="owner-name"

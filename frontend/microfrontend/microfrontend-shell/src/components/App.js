@@ -6,8 +6,6 @@ import Footer from "./Footer";
 import ImagePopup from "./ImagePopup";
 import api from "../utils/api";
 import { CurrentUserContext, PopupWithForm } from "shared-library";
-import EditProfilePopup from "./EditProfilePopup";
-import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import Register from "./Register";
 import Login from "./Login";
@@ -16,16 +14,19 @@ import ProtectedRoute from "./ProtectedRoute";
 import * as auth from "../utils/auth.js";
 
 function App() {
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
-    React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
-    React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [cards, setCards] = React.useState([]);
 
   // В корневом компоненте App создана стейт-переменная currentUser. Она используется в качестве значения для провайдера контекста.
   const [currentUser, setCurrentUser] = React.useState({});
+  function handleUserUpdate(e) {
+    setCurrentUser(e.detail);
+  }
+  React.useEffect(() => {
+    addEventListener("profiles-user-update", handleUserUpdate);
+    return () => removeEventListener("profiles-user-update", handleUserUpdate);
+  }, []);
 
   const [isInfoToolTipOpen, setIsInfoToolTipOpen] = React.useState(false);
   const [tooltipStatus, setTooltipStatus] = React.useState("");
@@ -39,9 +40,8 @@ function App() {
   // Запрос к API за информацией о пользователе и массиве карточек выполняется единожды, при монтировании.
   React.useEffect(() => {
     api
-      .getAppInfo()
-      .then(([cardData, userData]) => {
-        setCurrentUser(userData);
+      .getCardList()
+      .then((cardData) => {
         setCards(cardData);
       })
       .catch((err) => console.log(err));
@@ -65,48 +65,18 @@ function App() {
     }
   }, [history]);
 
-  function handleEditProfileClick() {
-    setIsEditProfilePopupOpen(true);
-  }
-
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true);
   }
 
-  function handleEditAvatarClick() {
-    setIsEditAvatarPopupOpen(true);
-  }
-
   function closeAllPopups() {
-    setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
-    setIsEditAvatarPopupOpen(false);
     setIsInfoToolTipOpen(false);
     setSelectedCard(null);
   }
 
   function handleCardClick(card) {
     setSelectedCard(card);
-  }
-
-  function handleUpdateUser(userUpdate) {
-    api
-      .setUserInfo(userUpdate)
-      .then((newUserData) => {
-        setCurrentUser(newUserData);
-        closeAllPopups();
-      })
-      .catch((err) => console.log(err));
-  }
-
-  function handleUpdateAvatar(avatarUpdate) {
-    api
-      .setUserAvatar(avatarUpdate)
-      .then((newUserData) => {
-        setCurrentUser(newUserData);
-        closeAllPopups();
-      })
-      .catch((err) => console.log(err));
   }
 
   function handleCardLike(card) {
@@ -175,7 +145,6 @@ function App() {
     // После успешного вызова обработчика onSignOut происходит редирект на /signin
     history.push("/signin");
   }
-
   return (
     // В компонент App внедрён контекст через CurrentUserContext.Provider
     <CurrentUserContext.Provider value={currentUser}>
@@ -187,9 +156,7 @@ function App() {
             path="/"
             component={Main}
             cards={cards}
-            onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}
-            onEditAvatar={handleEditAvatarClick}
             onCardClick={handleCardClick}
             onCardLike={handleCardLike}
             onCardDelete={handleCardDelete}
@@ -203,22 +170,12 @@ function App() {
           </Route>
         </Switch>
         <Footer />
-        <EditProfilePopup
-          isOpen={isEditProfilePopupOpen}
-          onUpdateUser={handleUpdateUser}
-          onClose={closeAllPopups}
-        />
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onAddPlace={handleAddPlaceSubmit}
           onClose={closeAllPopups}
         />
         <PopupWithForm title="Вы уверены?" name="remove-card" buttonText="Да" />
-        <EditAvatarPopup
-          isOpen={isEditAvatarPopupOpen}
-          onUpdateAvatar={handleUpdateAvatar}
-          onClose={closeAllPopups}
-        />
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
         <InfoTooltip
           isOpen={isInfoToolTipOpen}

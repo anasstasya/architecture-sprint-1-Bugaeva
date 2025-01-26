@@ -1,23 +1,25 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import Card from './Card';
 import { CurrentUserContext } from 'shared-library';
 
-function Main({ cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike, onCardDelete }) {
+const UserPane = lazy(() => import('profiles/UserPane').catch(() => {
+  return { default: () => <div className="error">UserPane component is not available</div> };
+}));
+
+
+function Main({ cards, onAddPlace, onCardClick, onCardLike, onCardDelete }) {
   const currentUser = React.useContext(CurrentUserContext);
 
   const imageStyle = { backgroundImage: `url(${currentUser.avatar})` };
 
   return (
     <main className="content">
-      <section className="profile page__section">
-        <div className="profile__image" onClick={onEditAvatar} style={imageStyle}></div>
-        <div className="profile__info">
-          <h1 className="profile__title">{currentUser.name}</h1>
-          <button className="profile__edit-button" type="button" onClick={onEditProfile}></button>
-          <p className="profile__description">{currentUser.about}</p>
+      <div className="page__section panel">
+        <UserPane/>
+        <div className="panel__right-item">
+          <button className="places__add-button" type="button" onClick={onAddPlace}></button>
         </div>
-        <button className="profile__add-button" type="button" onClick={onAddPlace}></button>
-      </section>
+      </div>
       <section className="places page__section">
         <ul className="places__list">
           {cards.map((card) => (
