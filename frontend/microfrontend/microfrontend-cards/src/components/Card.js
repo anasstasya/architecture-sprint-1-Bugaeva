@@ -1,5 +1,6 @@
 import React from 'react';
 import { CurrentUserContext } from 'shared-library';
+import '../blocks/card/card.css';
 
 function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   const cardStyle = { backgroundImage: `url(${card.link})` };

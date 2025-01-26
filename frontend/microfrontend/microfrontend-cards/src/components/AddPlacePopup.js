@@ -1,9 +1,23 @@
 import React from 'react';
 import { PopupWithForm } from 'shared-library';
 
-function AddPlacePopup({ isOpen, onAddPlace, onClose }) {
+function AddPlacePopup({ onAddPlace }) {
+  const [isOpen, setIsOpen] = React.useState(false);
   const [name, setName] = React.useState('');
   const [link, setLink] = React.useState('');
+
+  const handlePopupOpen = () => {
+    setIsOpen(true);
+  }
+
+  const handlePopupClose = () => {
+    setIsOpen(false);
+  }
+
+  React.useEffect(() => {
+    addEventListener("_cards-add-place-popup-open", handlePopupOpen);
+    return () => removeEventListener("_cards-add-place-popup-open", handlePopupOpen);
+  }, []);
 
   function handleNameChange(e) {
     setName(e.target.value);
@@ -20,11 +34,12 @@ function AddPlacePopup({ isOpen, onAddPlace, onClose }) {
       name,
       link
     });
+    handlePopupClose();
   }
 
   return (
     <PopupWithForm
-      isOpen={isOpen} onSubmit={handleSubmit} onClose={onClose} title="Новое место" name="new-card"
+      isOpen={isOpen} onSubmit={handleSubmit} onClose={handlePopupClose} title="Новое место" name="new-card"
     >
       <label className="popup__label">
         <input type="text" name="name" id="place-name"

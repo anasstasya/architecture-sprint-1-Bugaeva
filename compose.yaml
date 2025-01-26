@@ -74,6 +74,22 @@ services:
       timeout: 2s
       retries: 5
 
+  frontend-cards:
+    build:
+      context: frontend
+      dockerfile: Dockerfile.mf-cards
+    ports:
+      - 3002:8080
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "--fail", "-G", "http://localhost:3002" ]
+      start_period: 15s
+      interval: 10s
+      timeout: 2s
+      retries: 5
+
   frontend-test:
     build:
       context: frontend
@@ -85,4 +101,6 @@ services:
       frontend-shell:
         condition: service_healthy
       frontend-profiles:
+        condition: service_healthy
+      frontend-cards:
         condition: service_healthy
