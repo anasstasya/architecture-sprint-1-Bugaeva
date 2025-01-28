@@ -64,8 +64,12 @@ module.exports = (_, argv) => ({
     new ModuleFederationPlugin({
       name: "places_mf",
       filename: "remoteEntry.js",
-      remotes: {},
-      exposes: {},
+      remotes: {
+        ui: "ui@http://localhost:8081/remoteEntry.js",
+      },
+      exposes: {
+        "./Places": "./src/components/Places.js",
+      },
       shared: {
         ...deps,
         react: {

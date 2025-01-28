@@ -1,11 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {lazy, Suspense, useEffect, useState} from 'react';
 
 import "../blocks/places/places.css"
+import api from "../utils/api";
 import Card from "./Card";
 import AddPlacePopup from "./AddPlacePopup";
-import PopupWithForm from "../../../ui-lib/src/components/PopupWithForm";
-import api from "../utils/api";
-import ImagePopup from "../../../ui-lib/src/components/ImagePopup";
+
+const PopupWithForm = lazy(() => import('ui/PopupWithForm'));
+const ImagePopup = lazy(() => import('ui/ImagePopup'));
 
 export default function Profile({currentUser}) {
 
@@ -95,8 +96,12 @@ export default function Profile({currentUser}) {
                 onAddPlace={handleAddPlaceSubmit}
                 onClose={onCloseAllPopups}
             />
-            <PopupWithForm title="Вы уверены?" name="remove-card" buttonText="Да"/>
-            <ImagePopup card={selectedCard} onClose={onCloseAllPopups}/>
+            <Suspense>
+                <PopupWithForm title="Вы уверены?" name="remove-card" buttonText="Да"/>
+            </Suspense>
+            <Suspense>
+                <ImagePopup card={selectedCard} onClose={onCloseAllPopups}/>
+            </Suspense>
         </>
     )
 }

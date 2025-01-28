@@ -1,30 +1,33 @@
-import React from 'react';
-import PopupWithForm from './PopupWithForm';
+import React, {lazy, Suspense} from 'react';
 
-function EditAvatarPopup({ isOpen, onUpdateAvatar, onClose }) {
-  const inputRef = React.useRef();
+const PopupWithForm = lazy(() => import('ui/PopupWithForm'));
 
-  function handleSubmit(e) {
-    e.preventDefault();
+function EditAvatarPopup({isOpen, onUpdateAvatar, onClose}) {
+    const inputRef = React.useRef();
 
-    onUpdateAvatar({
-      avatar: inputRef.current.value,
-    });
-  }
+    function handleSubmit(e) {
+        e.preventDefault();
 
-  return (
-    <PopupWithForm
-      isOpen={isOpen} onSubmit={handleSubmit} onClose={onClose} title="Обновить аватар" name="edit-avatar"
-    >
+        onUpdateAvatar({
+            avatar: inputRef.current.value,
+        });
+    }
 
-      <label className="popup__label">
-        <input type="url" name="avatar" id="owner-avatar"
-               className="popup__input popup__input_type_description" placeholder="Ссылка на изображение"
-               required ref={inputRef} />
-        <span className="popup__error" id="owner-avatar-error"></span>
-      </label>
-    </PopupWithForm>
-  );
+    return (
+        <Suspense>
+            <PopupWithForm
+                isOpen={isOpen} onSubmit={handleSubmit} onClose={onClose} title="Обновить аватар" name="edit-avatar"
+            >
+
+                <label className="popup__label">
+                    <input type="url" name="avatar" id="owner-avatar"
+                           className="popup__input popup__input_type_description" placeholder="Ссылка на изображение"
+                           required ref={inputRef}/>
+                    <span className="popup__error" id="owner-avatar-error"></span>
+                </label>
+            </PopupWithForm>
+        </Suspense>
+    );
 }
 
 export default EditAvatarPopup;

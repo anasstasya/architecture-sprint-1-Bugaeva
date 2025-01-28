@@ -65,9 +65,11 @@ module.exports = (_, argv) => ({
       name: "profile_mf",
       filename: "remoteEntry.js",
       remotes: {
+        ui: "ui@http://localhost:8081/remoteEntry.js",
+      },
+      exposes: {
         "./Profile": "./src/components/Profile.js",
       },
-      exposes: {},
       shared: {
         ...deps,
         react: {
