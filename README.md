@@ -16,7 +16,7 @@ Single SPA vs Webpack Module Federation
 В данном случае Webpack Module Federation предпочтительнее, потому что проект уже использует Webpack через react-scripts, что упрощает интеграцию.
 
 3. Предлагаемая структура проекта:
-4. microfrontends/
+microfrontends/
 │── shell/                     # Контейнерное приложение
 │   ├── src/
 │   │   ├── components/Header.js
