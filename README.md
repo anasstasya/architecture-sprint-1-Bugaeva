@@ -8,4 +8,5 @@
 [frontend/Readme.md](frontend/Readme.md).
 
 # Сервис электронных торгов, разбитый на микросервисы.
-Решение находится по адресу https://disk.yandex.ru/d/EVmUC8p6RKOSOQ на листе "Решение".
+Решение находится в файле [arch\_template\_task2.drawio](./arch_template_task2.drawio)
+на листе "Решение".
