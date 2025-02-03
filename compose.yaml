@@ -48,9 +48,6 @@ services:
       dockerfile: Dockerfile.mf-shell
     ports:
       - 3000:8080
-    depends_on:
-      backend:
-        condition: service_healthy
     healthcheck:
       test: [ "CMD", "curl", "--fail", "-G", "http://localhost:3000" ]
       start_period: 15s
@@ -64,9 +61,6 @@ services:
       dockerfile: Dockerfile.mf-profiles
     ports:
       - 3003:8080
-    depends_on:
-      backend:
-        condition: service_healthy
     healthcheck:
       test: [ "CMD", "curl", "--fail", "-G", "http://localhost:3003" ]
       start_period: 15s
@@ -80,9 +74,6 @@ services:
       dockerfile: Dockerfile.mf-cards
     ports:
       - 3002:8080
-    depends_on:
-      backend:
-        condition: service_healthy
     healthcheck:
       test: [ "CMD", "curl", "--fail", "-G", "http://localhost:3002" ]
       start_period: 15s
@@ -96,9 +87,6 @@ services:
       dockerfile: Dockerfile.mf-auth
     ports:
       - 3004:8080
-    depends_on:
-      backend:
-        condition: service_healthy
     healthcheck:
       test: [ "CMD", "curl", "--fail", "-G", "http://localhost:3004" ]
       start_period: 15s
