@@ -16,8 +16,8 @@ function App() {
     setCurrentUser(e.detail);
   }
   React.useEffect(() => {
-    addEventListener("user-update", handleUserUpdate);
-    return () => removeEventListener("user-update", handleUserUpdate);
+    addEventListener("profiles-user-update", handleUserUpdate);
+    return () => removeEventListener("profiles-user-update", handleUserUpdate);
   }, []);
 
   //В компоненты добавлены новые стейт-переменные: email — в компонент App
