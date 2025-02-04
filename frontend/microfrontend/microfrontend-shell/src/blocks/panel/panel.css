@@ -1,0 +1,6 @@
+@import url('./__right-item/panel__right-item.css');
+
+.panel {
+    display: flex;
+    align-content: center;
+}

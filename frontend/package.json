@@ -1,23 +1,25 @@
 {
-  "name": "web_canonicals_ru",
-  "version": "0.1.0",
+  "name": "mesto-with-microfrontends",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts --openssl-legacy-provider start",
-    "build": "react-scripts --openssl-legacy-provider build",
-    "test": "react-scripts test",
+    "build": "node mf-run.mjs microfrontend npm run build",
+    "build:dev": "node mf-run.mjs microfrontend npm run build:dev",
+    "build:start": "node mf-run.mjs microfrontend npm run build:start",
+    "test": "node mf-run.mjs microfrontend npm run test",
     "test:microfrontend": "npx jest ./index.spec.js",
-    "eject": "react-scripts eject"
+    "start": "node mf-run.mjs microfrontend npm run start",
+    "start:live": "node mf-run.mjs microfrontend npm run start:live"
   },
   "eslintConfig": {
     "extends": [
@@ -38,9 +40,13 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.22.0",
+    "@babel/plugin-transform-runtime": "^7.22.0",
+    "@babel/preset-env": "^7.22.0",
     "@playwright/test": "^1.45.0",
     "@types/node": "^20.14.9",
     "dotenv": "^16.0.2",
-    "wait-port": "^1.1.0"
+    "wait-port": "^1.1.0",
+    "yarn": "^1.22.22"
   }
 }

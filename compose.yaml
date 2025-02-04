@@ -15,7 +15,7 @@ services:
   backend-test:
     build:
       context: backend
-      dockerfile: ../Dockerfile.backend
+      dockerfile: Dockerfile
     environment:
       DB_ADDRESS: mongodb://mongo:27017/mestodb
     command: npm run lint
@@ -27,7 +27,7 @@ services:
   backend:
     build:
       context: backend
-      dockerfile: ../Dockerfile.backend
+      dockerfile: Dockerfile
     environment:
       DB_ADDRESS: mongodb://mongo:27017/mestodb
     depends_on:
@@ -42,21 +42,75 @@ services:
       retries: 5 
       test: node healthcheck.js
 
+  frontend-shell:
+    build:
+      context: frontend
+      dockerfile: Dockerfile.mf-shell
+    ports:
+      - 3000:8080
+    healthcheck:
+      # the image doesn't have `curl` hence the reason for the dance
+      test: [ "CMD", "sh", "-c", "set -e; printf 'GET / HTTP/1.0\r\n\r\n' | nc frontend-shell 8080 | grep -q 'main\\.js'" ]
+      start_period: 15s
+      interval: 10s
+      timeout: 2s
+      retries: 5
+
+  frontend-profiles:
+    build:
+      context: frontend
+      dockerfile: Dockerfile.mf-profiles
+    ports:
+      - 3003:8080
+    healthcheck:
+      # the image doesn't have `curl` hence the reason for the dance
+      test: [ "CMD", "sh", "-c", "set -e; printf 'GET / HTTP/1.0\r\n\r\n' | nc frontend-profiles 8080 | grep -q 'main\\.js'" ]
+      start_period: 15s
+      interval: 10s
+      timeout: 2s
+      retries: 5
+
+  frontend-cards:
+    build:
+      context: frontend
+      dockerfile: Dockerfile.mf-cards
+    ports:
+      - 3002:8080
+    healthcheck:
+      # the image doesn't have `curl` hence the reason for the dance
+      test: [ "CMD", "sh", "-c", "set -e; printf 'GET / HTTP/1.0\r\n\r\n' | nc frontend-cards 8080 | grep -q 'main\\.js'" ]
+      start_period: 15s
+      interval: 10s
+      timeout: 2s
+      retries: 5
+
+  frontend-auth:
+    build:
+      context: frontend
+      dockerfile: Dockerfile.mf-auth
+    ports:
+      - 3004:8080
+    healthcheck:
+      # the image doesn't have `curl` hence the reason for the dance
+      test: [ "CMD", "sh", "-c", "set -e; printf 'GET / HTTP/1.0\r\n\r\n' | nc frontend-auth 8080 | grep -q 'main\\.js'" ]
+      start_period: 15s
+      interval: 10s
+      timeout: 2s
+      retries: 5
+
   frontend-test:
     build:
       context: frontend
-      dockerfile: ../Dockerfile.frontend
-    command: yarn test:microfrontend
+      dockerfile: Dockerfile.test
     restart: 'no'
     environment:
           CI: true
-
-  frontend:
-    build:
-      context: frontend
-      dockerfile: ../Dockerfile.frontend
-    ports:
-      - 3000:3000
     depends_on:
-      backend:
+      frontend-shell:
+        condition: service_healthy
+      frontend-profiles:
+        condition: service_healthy
+      frontend-cards:
+        condition: service_healthy
+      frontend-auth:
         condition: service_healthy
