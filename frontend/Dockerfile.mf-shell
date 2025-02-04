@@ -3,18 +3,24 @@
 FROM node:22-alpine AS build-stage
 
 ENV NODE_ENV production
-# poor man out-of-tree build for the Crippled NPM
 WORKDIR /app
-RUN --mount=type=bind,source=.,target=/src \
-    --mount=type=tmpfs,target=/src/microfrontend/microfrontend-shell/node_modules \
-    --mount=type=tmpfs,target=/src/microfrontend/microfrontend-shell/dist \
+COPY . /build
+RUN \
 <<EOF
 set -e
-cd /src/microfrontend/microfrontend-shell
+
+cd /build/shared-library
+export npm_config_loglevel=error
+npm install --include dev --include prod --no-fund --no-audit --no-save
+
+cd /build/microfrontend/microfrontend-shell
+# Hide deprecation and other warnings useless for robots
+export npm_config_loglevel=error
 npm install --include dev --include prod --no-fund --no-audit --no-save
 # currently the behavior of production and development builds differ for unknown reasons
 npm run build:dev
 cp -pr dist/ /app
+rm -rf /build
 EOF
 
 FROM nginxinc/nginx-unprivileged:1-alpine-slim AS production-stage
