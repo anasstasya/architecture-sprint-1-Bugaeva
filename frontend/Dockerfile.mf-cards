@@ -12,7 +12,8 @@ RUN --mount=type=bind,source=.,target=/src \
 set -e
 cd /src/microfrontend/microfrontend-cards
 npm install --include dev --include prod --no-fund --no-audit --no-save
-npm run build
+# currently the behavior of production and development builds differ for unknown reasons
+npm run build:dev
 cp -pr dist/ /app
 EOF
 
