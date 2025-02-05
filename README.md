@@ -45,3 +45,10 @@ Yandex-Practicum/architecture-sprint-1 - Тестовое задание 1-го 
 4. `cd host && npm run start --port 3000`
 
 Для проверки перейти на страницу [http://localhost:3000](http://localhost:3000) 
+
+
+--------
+arch_template_task2.drawio - Решение 2-го задания
+--------
+
+## Схема находится по пути: [exercise_2/arch_template_task2.drawio]()
