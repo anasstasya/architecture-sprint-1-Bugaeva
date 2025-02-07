@@ -93,97 +93,99 @@
 
 В данный проект я перенес компонет PopupWithForm и связанные с ним стили.
 
-general
-├── package.json    
-├── src
-│   ├── blocks                                - стили проекта
-│   │   └── popup
-│   ├── components                     - компоненты
-│   │   └── PopupWithForm.js     - шаблон попапа 
-│   └── index.css                           - подключение стилей
+general<br/>
+├── package.json<br/>
+├── src<br/>
+│   ├── blocks                                - стили проекта<br/>
+│   │   └── popup<br/>
+│   ├── components                     - компоненты<br/>
+│   │   └── PopupWithForm.js     - шаблон попапа <br/>
+│   └── index.css                           - подключение стилей<br/>
 └── tsconfig.json 
+
+
 
 ### Проект host
 
 Основной проект, который собирает все компоненты вместе. 
 
-host
-├── src
-│   ├── App.tsx                    - основное приложение
-│   ├── blocks                      - стили приложения
-│   │   ├── content              - стили страницы  
-│   │   ├── footer                 - стили подвала
-│   │   ├── header               - стили заголовка
-│   │   └── page                   - стили сраницы
-│   ├── components
-│   │   ├── Footer.js            - сборка футера
-│   │   ├── Header.js          - сборка заголовка
-│   │   └── Main.js               - 
-│   ├── contexts                 - контекст   
-│   ├── images                    - рисунки
-│   ├── index.css                
-│   ├── index.ts
-│   └── vendor                    - шрифты и стили
+host<br/>
+├── src<br/>
+│   ├── App.tsx                    - основное приложение<br/>
+│   ├── blocks                      - стили приложения<br/>
+│   │   ├── content              - стили страницы  <br/>
+│   │   ├── footer                 - стили подвала<br/>
+│   │   ├── header               - стили заголовка<br/>
+│   │   └── page                   - стили сраницы<br/>
+│   ├── components<br/>
+│   │   ├── Footer.js            - сборка футера<br/>
+│   │   ├── Header.js          - сборка заголовка<br/>
+│   │   └── Main.js               - основная страница<br/>
+│   ├── contexts                 - контекст   <br/>
+│   ├── images                    - рисунки<br/>
+│   ├── index.css                <br/>
+│   ├── index.ts<br/>
+│   └── vendor                    - шрифты и стили<br/>
 └── tsconfig.json
 
 ### Проект users
 
 Реализует логику пользователей.
 
-users
-├── src
-│   ├── blocks                - подключение стилей
-│   │   ├── auth-form    - стили для формы авторизации
-│   │   ├── header         - стили для отображения плашки регистрации или пользователя в заголовке   
-│   │   └── login             - стили для логина
-│   ├── components
-│   │   ├── EditAvatarPopup.js    - попап редактирования аватара
-│   │   ├── EditProfilePopup.js    - попап реджактирования профиля
-│   │   ├── Login.js                         - форма логина 
-│   │   ├── Register.js                    - форма регистрации на сайте
-│   │   └── UserHeaderControl.js - отображение профиля в заголовке
-│   ├── index.css                            - подключение стилей
-│   ├── index.ts
-│   └── utils                                    - дополнительные модули
-│       ├── api.js
-│       └── auth.js
+users<br/>
+├── src<br/>
+│   ├── blocks                - подключение стилей<br/>
+│   │   ├── auth-form    - стили для формы авторизации<br/>
+│   │   ├── header         - стили для отображения плашки регистрации или пользователя в заголовке   <br/>
+│   │   └── login             - стили для логина<br/>
+│   ├── components<br/>
+│   │   ├── EditAvatarPopup.js    - попап редактирования аватара<br/>
+│   │   ├── EditProfilePopup.js    - попап реджактирования профиля<br/>
+│   │   ├── Login.js                         - форма логина <br/>
+│   │   ├── Register.js                    - форма регистрации на сайте<br/>
+│   │   └── UserHeaderControl.js - отображение профиля в заголовке<br/>
+│   ├── index.css                            - подключение стилей<br/>
+│   ├── index.ts<br/>
+│   └── utils                                    - дополнительные модули<br/>
+│       ├── api.js<br/>
+│       └── auth.js<br/>
 └── tsconfig.json
 
 ### Проект places
 
 Проект реализует логику работы с карточками и местами. 
 
-places
-├── src
-│   ├── App.tsx
-│   ├── blocks            - стили
-│   │   ├── card          - стили для страницы с карточкой места  
-│   │   └── places       - стили для места на общей сраницы
-│   ├── components
-│   │   ├── AddPlacePopup.js    - попап добавления места
-│   │   ├── Card.js                        - страница с карточкой места
-│   │   └── ImagePopup.js          - попап редактирования фотографии места
-│   ├── index.css
-│   ├── index.ts
-│   └── utils        
-│       └── api.js            - утилиты для работы с бекендом
+places<br/>
+├── src<br/>
+│   ├── App.tsx<br/>
+│   ├── blocks            - стили<br/>
+│   │   ├── card          - стили для страницы с карточкой места  <br/>
+│   │   └── places       - стили для места на общей сраницы<br/>
+│   ├── components<br/>
+│   │   ├── AddPlacePopup.js    - попап добавления места<br/>
+│   │   ├── Card.js                        - страница с карточкой места<br/>
+│   │   └── ImagePopup.js          - попап редактирования фотографии места<br/>
+│   ├── index.css<br/>
+│   ├── index.ts<br/>
+│   └── utils        <br/>
+│       └── api.js            - утилиты для работы с бекендом<br/>
 └── tsconfig.json
 
 ### Проект likes
 
 Логику по лайкам решил вынести в отдельный модуль, что бы там прикрутить потом статистику по лайкам и расширить активности пользователей.
 
-likes
-├── src
-│   ├── App.tsx
-│   ├── blocks                - стили
-│   │   └── card              - стили отображения лайков на карточке  
-│   ├── components
-│   │   └── CardLikesComponent.js  - компонент встраивается в карточку и отображает лайли и кнопку лайка
-│   ├── index.css
-│   ├── index.ts
-│   └── utils
-│       └── api.js            - обращение к бекенду, что бы проставить лайк (changeLikeCardStatus)
+likes<br/>
+├── src<br/>
+│   ├── App.tsx<br/>
+│   ├── blocks                - стили<br/>
+│   │   └── card              - стили отображения лайков на карточке  <br/>
+│   ├── components<br/>
+│   │   └── CardLikesComponent.js  - компонент встраивается в карточку и отображает лайли и кнопку лайка<br/>
+│   ├── index.css<br/>
+│   ├── index.ts<br/>
+│   └── utils<br/>
+│       └── api.js            - обращение к бекенду, что бы проставить лайк (changeLikeCardStatus)<br/>
 └── tsconfig.json
 
 # Задание 2 Декомпозиция веб-приложения на Django на микросервисы
