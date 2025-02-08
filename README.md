@@ -9,11 +9,11 @@
 ### Уровень 2. 
 
 В рамках декомпозиции были выделены 3 микрофронтенда(remote):
-- микрофронтенд аутентификации([auth-microfrontend](https://github.com/EvgenyMaklakov/architecture-sprint-1/tree/sprint_1/frontend/auth-microfrontend/src)));
-- микрофронтенд редактирования профиля([profile-editing-microfrontend](new-frontend/profile-editing-microfrontend));
-- микрофронтенд профиля ([profile-microfrontend](new-frontend/profile-microfrontend)).
+- микрофронтенд аутентификации([auth-microfrontend](https://github.com/EvgenyMaklakov/architecture-sprint-1/tree/sprint_1/frontend/auth-microfrontend/src));
+- микрофронтенд редактирования профиля([profile-editing-microfrontend](https://github.com/EvgenyMaklakov/architecture-sprint-1/tree/sprint_1/frontend/profile-editing-microfrontend/src));
+- микрофронтенд профиля ([profile-microfrontend](https://github.com/EvgenyMaklakov/architecture-sprint-1/tree/sprint_1/frontend/profile-microfrontend/src)).
 
-Важно отметить, что также в структуру был добавлено основное приложение([host-microfrontend](new-frontend/host-microfrontend)) для динамической загрузки удаленных модулей.
+Важно отметить, что также в структуру был добавлено основное приложение([host-microfrontend](https://github.com/EvgenyMaklakov/architecture-sprint-1/tree/sprint_1/frontend/host-microfrontend/src)) для динамической загрузки удаленных модулей.
 
 Такой вариант разбивки был сделан после анализа зависимостей и функционала приложения. Были выделены максимально не связанные между собой домены. Примерная структура каждого из микрофронтендов отражена в директории _frontend/{название микрофронтенда}_.
 
