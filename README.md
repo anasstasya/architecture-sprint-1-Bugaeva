@@ -9,7 +9,7 @@
 ### Уровень 2. 
 
 В рамках декомпозиции были выделены 3 микрофронтенда(remote):
-- микрофронтенд аутентификации([auth-microfrontend]([new-frontend/auth-microfrontend](https://github.com/EvgenyMaklakov/architecture-sprint-1/tree/sprint_1/frontend/auth-microfrontend/src)));
+- микрофронтенд аутентификации([auth-microfrontend](https://github.com/EvgenyMaklakov/architecture-sprint-1/tree/sprint_1/frontend/auth-microfrontend/src)));
 - микрофронтенд редактирования профиля([profile-editing-microfrontend](new-frontend/profile-editing-microfrontend));
 - микрофронтенд профиля ([profile-microfrontend](new-frontend/profile-microfrontend)).
 
