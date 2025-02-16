@@ -21,4 +21,4 @@
 Не выполнено. 
 
 ## Задание 2.
-Файл лежит в корне.
+Файл - ([Архитектура](https://github.com/EvgenyMaklakov/architecture-sprint-1/tree/sprint_1/task2.drawio)).
